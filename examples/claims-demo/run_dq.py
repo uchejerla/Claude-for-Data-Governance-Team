@@ -9,6 +9,11 @@ HERE = pathlib.Path(__file__).parent
 
 
 def run(rows, rules):
+    if not rows:
+        raise ValueError("no rows to check")
+    for r in rules:  # rules may be pasted in from outside; only plain SELECTs run
+        if not r["fail_sql"].lstrip().upper().startswith("SELECT"):
+            raise ValueError(f"{r['id']}: fail_sql must start with SELECT")
     db = sqlite3.connect(":memory:")
     cols = list(rows[0])
     db.execute(f"CREATE TABLE claims ({', '.join(cols)})")
