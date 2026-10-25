@@ -1,0 +1,15 @@
+{
+  "_notice": "Demo access policy. Roles, limits and approvals must be replaced with the company's own policy before use.",
+  "roles": ["claims_analyst", "adjuster", "data_engineer", "steward", "siu_investigator", "compliance_officer", "contractor"],
+  "tiers": {
+    "none": {"rank": 0, "roles": "*", "purpose": false, "max_days": 365, "owner_approval": false, "training": false},
+    "PII": {"rank": 1, "roles": ["claims_analyst", "adjuster", "data_engineer", "steward", "siu_investigator", "compliance_officer"],
+            "purpose": true, "max_days": 90, "owner_approval": false, "training": true},
+    "GOV_ID": {"rank": 2, "roles": ["siu_investigator", "compliance_officer"],
+               "purpose": true, "max_days": 30, "owner_approval": true, "training": true},
+    "PHI": {"rank": 2, "roles": ["siu_investigator", "compliance_officer"],
+            "purpose": true, "max_days": 30, "owner_approval": true, "training": true},
+    "FINANCIAL_ACCOUNT": {"rank": 2, "roles": ["siu_investigator", "compliance_officer"],
+                          "purpose": true, "max_days": 30, "owner_approval": true, "training": true}
+  }
+}

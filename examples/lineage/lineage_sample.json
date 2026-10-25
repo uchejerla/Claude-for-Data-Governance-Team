@@ -1,0 +1,28 @@
+{
+  "nodes": {
+    "src.claims_tpa": {"kind": "source", "owner": "Claims Ops"},
+    "src.policy_admin": {"kind": "source", "owner": "Policy Ops"},
+    "raw.claims": {"kind": "table", "owner": "Data Eng"},
+    "stg.claims": {"kind": "table", "owner": "Data Eng"},
+    "dw.policy": {"kind": "table", "owner": "Data Eng"},
+    "dw.claim_header": {"kind": "table", "owner": "Claims Data Steward"},
+    "dw.claim_payment": {"kind": "table", "owner": "Claims Data Steward"},
+    "rpt.schedule_p": {"kind": "report", "regulatory": true, "owner": "Actuarial"},
+    "rpt.fast_track": {"kind": "report", "regulatory": true, "owner": "Compliance"},
+    "rpt.market_conduct": {"kind": "report", "regulatory": true, "owner": "Compliance"},
+    "dash.reserve_trend": {"kind": "dashboard", "owner": "Finance"}
+  },
+  "edges": [
+    ["src.claims_tpa", "raw.claims"],
+    ["raw.claims", "stg.claims"],
+    ["stg.claims", "dw.claim_header"],
+    ["stg.claims", "dw.claim_payment"],
+    ["src.policy_admin", "dw.policy"],
+    ["dw.policy", "dw.claim_header"],
+    ["dw.claim_header", "rpt.schedule_p"],
+    ["dw.claim_payment", "rpt.schedule_p"],
+    ["dw.claim_header", "rpt.fast_track"],
+    ["dw.claim_header", "rpt.market_conduct"],
+    ["dw.claim_payment", "dash.reserve_trend"]
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "period": "2026-10 (synthetic)",
+  "current": {"dq_overall": 98.8, "rules_passing": 2, "rules_total": 7, "cde_total": 3, "cde_with_owner": 3,
+              "cde_with_dq_rule": 2, "terms_approved": 12, "terms_in_review": 5,
+              "access_approved": 18, "access_denied": 3, "access_pending": 4},
+  "prior": {"dq_overall": 98.1, "rules_passing": 1, "rules_total": 7, "cde_total": 3, "cde_with_owner": 2,
+            "cde_with_dq_rule": 1, "terms_approved": 8, "terms_in_review": 7,
+            "access_approved": 11, "access_denied": 2, "access_pending": 2},
+  "open_issues": [
+    {"id": "DQ-12", "title": "Duplicate claim IDs", "severity": "critical", "age_days": 9},
+    {"id": "DQ-14", "title": "Report date before loss date", "severity": "critical", "age_days": 3},
+    {"id": "DQ-15", "title": "Paid amount above claim amount", "severity": "high", "age_days": 20},
+    {"id": "DQ-17", "title": "Missing loss date", "severity": "high", "age_days": 6},
+    {"id": "DQ-19", "title": "Late reporting", "severity": "medium", "age_days": 12}
+  ],
+  "issue_sla_days": {"critical": 7, "high": 14, "medium": 30},
+  "cde_coverage_target": 80,
+  "decisions": [
+    "Name an owner for claim header data",
+    "Replace the demo 30-day reporting window with the FNOL SLA and state deadlines"
+  ]
+}

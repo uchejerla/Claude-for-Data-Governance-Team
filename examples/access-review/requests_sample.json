@@ -1,0 +1,14 @@
+[
+  {"requester": "R1 (example)", "role": "claims_analyst", "dataset": "dw.claim_header", "purpose": "Monthly reserve review",
+   "days": 60, "tags": [], "training_complete": false, "owner_approved": false},
+  {"requester": "R2 (example)", "role": "adjuster", "dataset": "dw.claimant", "purpose": "Contact claimant on open claim",
+   "days": 30, "tags": ["PII"], "training_complete": true, "owner_approved": false},
+  {"requester": "R3 (example)", "role": "adjuster", "dataset": "dw.claimant", "purpose": "Contact claimant on open claim",
+   "days": 30, "tags": ["PII"], "training_complete": false, "owner_approved": false},
+  {"requester": "R4 (example)", "role": "contractor", "dataset": "dw.claimant", "purpose": "Data migration testing",
+   "days": 30, "tags": ["PII"], "training_complete": true, "owner_approved": true},
+  {"requester": "R5 (example)", "role": "siu_investigator", "dataset": "dw.claimant_ids", "purpose": "Fraud case 2026-114",
+   "days": 21, "tags": ["PII", "GOV_ID"], "training_complete": true, "owner_approved": true},
+  {"requester": "R6 (example)", "role": "siu_investigator", "dataset": "dw.claimant_ids", "purpose": "Fraud case 2026-115",
+   "days": 90, "tags": ["GOV_ID"], "training_complete": true, "owner_approved": true}
+]
