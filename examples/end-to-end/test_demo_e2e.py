@@ -6,8 +6,16 @@ R = build()
 
 
 class EndToEndTest(unittest.TestCase):
-    def test_all_eight_sections_present(self):
-        for n in range(1, 9):
+    def test_safeguards_section(self):
+        self.assertIn("chain check **intact**", R)
+        self.assertIn("tampering detected", R)
+        self.assertIn("- claimant_ssn: GOV_ID:", R)
+        self.assertIn("- adjuster_notes: [REDACTED_FREE_TEXT]", R)
+        for raw in ("123-45-6789", "Jane Roe", "555-123-4567"):
+            self.assertNotIn(raw, R.split("## 9.")[1])
+
+    def test_all_nine_sections_present(self):
+        for n in range(1, 10):
             self.assertIn(f"## {n}. ", R)
 
     def test_live_numbers_flow_through(self):

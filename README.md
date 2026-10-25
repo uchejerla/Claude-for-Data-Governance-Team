@@ -10,4 +10,4 @@ A starting point for teams implementing data governance with Claude: governance 
 - Run the demo: `python3 examples/end-to-end/run_demo.py` (Python 3, no installs)
 - Plan: [docs/PLAN.md](docs/PLAN.md)
 
-Status: 11 skills with tested tools on synthetic insurance claims data. Not yet run on real data. The Collibra connector is not built. [docs/guardrails.md](docs/guardrails.md) says which guardrails are enforced by tested code and which are still to build (audit log, masking).
+Status: 11 skills with tested tools on synthetic insurance claims data. Not yet run on real data. The Collibra connector is not built. [docs/guardrails.md](docs/guardrails.md) says which guardrails are enforced by tested code and which still need deployment work (wiring masking and the audit log into a live workflow).

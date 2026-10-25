@@ -25,8 +25,8 @@ How this kit keeps Claude's work safe to rely on in a governance program. For ea
 | 9 | Claude must not fabricate and must cite inputs | Instructed in skills | "Never fabricate" and `NEEDS INPUT` rules in the skills; a model can still err, so a steward reviews |
 | 10 | Sensitivity tagging uses names only | Enforced by design | `tag_sensitivity.py` reads column names; no values are read or sent |
 | 11 | Read-only connectors first, writes as drafts | Not built | No connector exists yet; this is the rule it must follow (section 6) |
-| 12 | Audit trail of prompts, outputs and approvers | Not built | Minimum record specified in section 5 |
-| 13 | Masking of sensitive values before anything reaches the model | Not built | Section 3 is the deployment rule; there is no pipeline yet |
+| 12 | Audit trail of recommendations and named-human decisions | Library built and tested; not wired into a live workflow | `examples/safeguards/audit.py`: hash-chained log, tampering and unnamed approvers detected, sensitive data refused. Does not log prompts or outputs themselves, only references and hashes |
+| 13 | Masking of sensitive values before anything reaches the model | Library built and tested; not wired into a live pipeline | `examples/safeguards/mask.py`: keyed tokens, free text redacted, pattern scrub, leak gate. Person names in free text and oddly named columns are not detected |
 
 ## 3. Data handling: what may reach Claude
 
@@ -44,7 +44,7 @@ Rules for a deployment:
 - Do not paste real claimant data into a chat to "test" a skill. Use the synthetic data in `examples/`.
 - Confirm retention and training terms in the customer's own agreement with Anthropic. This repo makes no claim about them.
 
-Status: the tools in this repo already work only on synthetic data and metadata. Enforcing the table above on real data is deployment work that is not built.
+Status: the tools in this repo work only on synthetic data and metadata. `examples/safeguards/mask.py` implements the masking and the leak gate this table calls for, and is tested on synthetic records. Running it on real data, in the customer's environment, ahead of every Claude call, is deployment work that is not built.
 
 ## 4. Who approves what
 
@@ -58,9 +58,15 @@ Status: the tools in this repo already work only on synthetic data and metadata.
 | Policy text | Draft for confirmed gaps | Compliance review; no legal reliance on drafts |
 | Council brief | Compute facts, draft narrative | Choose and own the decisions |
 
-## 5. Audit trail (specification, not built)
+## 5. Audit trail (library built, not wired in)
 
-Each Claude-assisted decision should be recorded with: timestamp, requester, skill and version, input reference (not the raw data), the tool output, the recommendation, the named approver, the decision and the decision time. Store it outside the chat so it survives the session, and keep it for the customer's records-retention period. Today only git history records the work in this repo.
+`examples/safeguards/audit.py` records each Claude-assisted decision as two linked entries: a recommendation (timestamp, requester, skill and version, input reference, hash of the tool output, the recommendation) and a decision (the named approver, the decision, the time). Entries are hash-chained, so edits, deletions and reordering are detected; raw sensitive data and unnamed approvers are refused.
+
+Still needed for a deployment:
+- Call it from the real workflow, so every recommendation is logged automatically.
+- Store the log outside the chat and keep it for the customer's records-retention period.
+- Keep `head()` (count and last hash) in a separate place: removing records from the end of the file is only detectable against it.
+- Use an append-only or write-once store for multiple writers; the file version has one writer and no locking.
 
 ## 6. Connector rules (for the Collibra work)
 
@@ -83,8 +89,8 @@ Each Claude-assisted decision should be recorded with: timestamp, requester, ski
 | Question | Answer today |
 |---|---|
 | Can Claude change our catalog or grant access? | No. The tools only recommend; no connector exists yet |
-| Does sensitive data reach the model? | Not in this repo (synthetic data only). In a deployment, section 3 applies and masking is not built |
-| Is there an audit log? | Not built; section 5 is the specification |
+| Does sensitive data reach the model? | Not in this repo (synthetic data only). In a deployment, section 3 applies; a masking and leak-gate library is built and tested but not wired into a pipeline |
+| Is there an audit log? | A tamper-evident log library is built and tested; it is not wired into a live workflow yet (section 5) |
 | Is it independently tested or certified? | No |
 | Where does our data go? | Depends on deployment and your Anthropic agreement; not decided here |
 | What happens when input is wrong or missing? | Tools stop or fail closed; unknowns are marked, not guessed |

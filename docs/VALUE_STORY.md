@@ -30,7 +30,7 @@ A working baseline for one domain (Claims first), where Claude does the drafting
 
 ## Proof you can run today
 
-`python3 examples/end-to-end/run_demo.py` runs the whole chain on synthetic claims data in seconds: 7 quality rules finding 42 planted defects exactly, 3 critical data elements, the 3 regulatory reports affected by a staging table, 6 access decisions with reasons, and a council brief. Each piece has automated tests (53 tests across the example folders).
+`python3 examples/end-to-end/run_demo.py` runs the whole chain on synthetic claims data in seconds: 7 quality rules finding 42 planted defects exactly, 3 critical data elements, the 3 regulatory reports affected by a staging table, 6 access decisions with reasons, and a council brief. Each piece has automated tests (71 tests across the example folders).
 
 ## What is not proven yet
 
