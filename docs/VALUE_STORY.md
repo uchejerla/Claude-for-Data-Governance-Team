@@ -26,6 +26,7 @@ A working baseline for one domain (Claims first), where Claude does the drafting
 - Claude proposes; a named person approves. Nothing publishes on its own.
 - Every number is computed by tested code, not written by the model. Unknowns are marked `NEEDS INPUT`, never guessed.
 - Each tool states its limits in its README, and the policy mapper says plainly that its regulation themes are not legal text.
+- [docs/guardrails.md](guardrails.md) lists every guardrail with its status (enforced by tested code, instructed in a skill, or not built yet) and answers the questions a security team will ask.
 
 ## Proof you can run today
 
