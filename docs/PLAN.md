@@ -62,7 +62,9 @@ Start with 1, 3, 4, 5 (highest value, lowest integration cost).
 | 10 Exception and remediation | `goviq-claims-dq-exception-management`, `goviq-claims-dq-remediation-playbook` |
 | Documentation of rules/assets | `goviq-claims-dq-documentation` |
 
-Gaps still to build: 2 (CDE identifier), 5 (sensitivity tagger), 6 (lineage), 7 (policy mapper), 8 (access review), 11 (council briefer).
+Built since, each with tests and no external tools (see `examples/`): 2 CDE identifier (`skills/cde-identifier`, `examples/cde-identifier`), 5 sensitivity tagger (`examples/claims-demo/tag_sensitivity.py`), 7 policy mapper (`skills/policy-mapper`, `examples/policy-mapper`), a glossary term validator (`examples/glossary-validator`), and a timeliness rule in the claims demo so all six DQ dimensions are measured.
+
+Gaps still to build: 6 (lineage), 8 (access review), 11 (council briefer).
 
 Follow-ups on the ported set: (a) rename `goviq-*` to neutral names if the product is not GovIQ-branded, (b) separate the insurance-specific content from the industry-neutral method so other industries can reuse the core, (c) remove or generalize tool-specific references (e.g. DQLabs handoff) behind a connector note.
 

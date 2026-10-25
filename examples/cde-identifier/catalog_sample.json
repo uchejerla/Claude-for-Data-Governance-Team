@@ -1,0 +1,23 @@
+[
+  {"column": "claim_id", "description": "Unique claim identifier", "is_key": true, "downstream_assets": 14,
+   "regulatory_reports": ["Schedule P"], "financial_impact": false, "sensitivity": []},
+  {"column": "paid_amount", "description": "Total paid on the claim", "is_key": false, "downstream_assets": 11,
+   "regulatory_reports": ["Schedule P", "State Fast Track"], "financial_impact": true, "sensitivity": []},
+  {"column": "reserve_amount", "description": "Case reserve on the open claim", "is_key": false, "downstream_assets": 9,
+   "regulatory_reports": ["Schedule P"], "financial_impact": true, "sensitivity": []},
+  {"column": "loss_date", "description": "Date the loss occurred", "is_key": false, "downstream_assets": 8,
+   "regulatory_reports": ["Market Conduct"], "financial_impact": false, "sensitivity": []},
+  {"column": "report_date", "description": "Date the claim was reported", "is_key": false, "downstream_assets": 5,
+   "regulatory_reports": ["State Fast Track"], "financial_impact": false, "sensitivity": []},
+  {"column": "state", "description": "Loss state", "is_key": false, "downstream_assets": 12,
+   "regulatory_reports": ["State Fast Track"], "financial_impact": false, "sensitivity": []},
+  {"column": "policy_id", "description": "Policy the claim is filed under", "is_key": true, "downstream_assets": 13,
+   "regulatory_reports": [], "financial_impact": false, "sensitivity": []},
+  {"column": "claim_status", "description": "Lifecycle status", "is_key": false, "downstream_assets": 7,
+   "regulatory_reports": [], "financial_impact": false, "sensitivity": []},
+  {"column": "claimant_ssn", "description": "Claimant social security number", "is_key": false, "downstream_assets": 2,
+   "regulatory_reports": [], "financial_impact": false, "sensitivity": ["GOV_ID"]},
+  {"column": "claimant_email", "description": "Claimant contact email", "is_key": false, "downstream_assets": 1,
+   "regulatory_reports": [], "financial_impact": false, "sensitivity": ["PII"]},
+  {"column": "adjuster_notes", "description": "Free-text notes"}
+]

@@ -7,6 +7,7 @@ from run_dq import HERE, run
 RULE_TO_DEFECT = {
     "CLM-001": "duplicate_claim_id", "CLM-002": "null_loss_date", "CLM-003": "report_before_loss",
     "CLM-004": "invalid_state", "CLM-005": "invalid_status", "CLM-006": "paid_exceeds_claim",
+    "CLM-007": "late_report",
 }
 
 

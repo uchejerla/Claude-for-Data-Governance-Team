@@ -14,6 +14,7 @@ INJECTED = {
     "paid_exceeds_claim": 6,
     "null_loss_date": 8,
     "invalid_status": 3,
+    "late_report": 9,
 }
 
 
@@ -50,4 +51,7 @@ def generate(n=500, seed=42):
         rows[next(idx)]["loss_date"] = None
     for _ in range(INJECTED["invalid_status"]):
         rows[next(idx)]["claim_status"] = "PENDING??"
+    for _ in range(INJECTED["late_report"]):  # natural lag is 0-29 days, so 45 is always late
+        r = rows[next(idx)]
+        r["report_date"] = (date.fromisoformat(r["loss_date"]) + timedelta(days=45)).isoformat()
     return rows

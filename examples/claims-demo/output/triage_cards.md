@@ -1,6 +1,6 @@
 # Triage cards: claims DQ demo
 
-Produced by applying `skills/goviq-claims-dq-triage` to the failing rules in the scorecard from `run_dq.py`. Anchor for all cards: synthetic data, SQLite in-memory, table `claims`, 500 rows. Fields the scorecard cannot support are `[NEEDS INPUT]`; nothing is invented. A steward must confirm severity before these are logged.
+Produced by applying `skills/goviq-claims-dq-triage` to the five failing rules in the scorecard from `run_dq.py`. Anchor for all cards: synthetic data, SQLite in-memory, table `claims`, 500 rows. Fields the scorecard cannot support are `[NEEDS INPUT]`; nothing is invented. A steward must confirm severity before these are logged.
 
 Passing rules CLM-004 (4 bad state codes) and CLM-005 (3 bad statuses) are within their 99% thresholds and need no card, but the bad values should still be cleaned.
 
@@ -47,8 +47,18 @@ Passing rules CLM-004 (4 bad state codes) and CLM-005 (3 bad statuses) are withi
 - **Next action:** Today: group the 8 rows by source/channel if available (`[NEEDS INPUT]`: no source column in the demo table). Short term: make the field mandatory at intake.
 - **Escalation:** Stay with steward.
 
+## Card 5: CLM-007, reported more than 30 days after loss
+
+- **Issue:** 9 claims were reported more than 30 days after the loss date.
+- **Classification:** Subdomain FNOL. Columns `report_date`, `loss_date`. Dimension Timeliness. The 30-day window is a demo value.
+- **Pattern note:** Related to the known pattern "claims acknowledged beyond 24-hour FNOL SLA" (Medium), but that pattern measures acknowledgment, not reporting lag, and the demo has no acknowledgment date.
+- **Severity:** 🟡 Medium. Records affected: 9 of 500 (1.8%). Risk: State Fast Track reporting windows (state-specific, `[NEEDS INPUT]`). Business impact `[NEEDS INPUT]`.
+- **Root causes:** (1) Claimant or agent reported late (a real-world delay, not a data error). (2) Report date overwritten by a later system event. (3) Backlog in a specific intake channel.
+- **Next action:** Today: check whether the 9 share a channel or week. Short term: replace the demo window with the real SLA and state deadlines.
+- **Escalation:** Stay with steward.
+
 ---
 
-**Follow-up questions (max 2, per the skill):** Are the 33 failing rows concentrated in one source system or load date? Which downstream reports use `claim_id` and `paid_amount`?
+**Follow-up questions (max 2, per the skill):** Are the 42 failing rows concentrated in one source system or load date? Which downstream reports use `claim_id` and `paid_amount`?
 
 *Assumptions:* severity for Cards 3 and 4 is my judgment, flagged above. Triage date and skill version: goviq-claims-dq-triage-v1.

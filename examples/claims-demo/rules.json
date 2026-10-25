@@ -16,5 +16,8 @@
    "fail_sql": "SELECT COUNT(*) FROM claims WHERE claim_status NOT IN ('OPEN','CLOSED','DENIED','REOPENED')"},
   {"id": "CLM-006", "dimension": "Accuracy", "element": "paid_amount", "threshold": 1.0,
    "description": "paid_amount does not exceed claim_amount",
-   "fail_sql": "SELECT COUNT(*) FROM claims WHERE paid_amount > claim_amount"}
+   "fail_sql": "SELECT COUNT(*) FROM claims WHERE paid_amount > claim_amount"},
+  {"id": "CLM-007", "dimension": "Timeliness", "element": "report_date", "threshold": 0.99,
+   "description": "claim is reported within 30 days of the loss",
+   "fail_sql": "SELECT COUNT(*) FROM claims WHERE julianday(report_date) - julianday(loss_date) > 30"}
 ]

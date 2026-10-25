@@ -1,6 +1,6 @@
 # Claims DQ demo (no external tools)
 
-Synthetic P&C claims with a known number of injected defects, six DQ rules, and a scorecard. Pure Python 3 standard library (SQLite), so anyone can run it.
+Synthetic P&C claims with a known number of injected defects, seven DQ rules, and a scorecard. Pure Python 3 standard library (SQLite), so anyone can run it.
 
 ```bash
 python3 run_dq.py          # print the scorecard
@@ -13,7 +13,7 @@ python3 -m unittest -v     # prove each rule finds exactly the injected defects
 
 ## Skill outputs (generated from the scorecard)
 
-- [output/triage_cards.md](output/triage_cards.md): triage cards for the four failing rules, from `goviq-claims-dq-triage`
+- [output/triage_cards.md](output/triage_cards.md): triage cards for the five failing rules, from `goviq-claims-dq-triage`
 - [output/scorecard_narration.md](output/scorecard_narration.md): executive and operational narrative, from `goviq-claims-dq-scorecard-narration`
 
 Unknowns (prior period, dollar impact, source system) are marked `[NEEDS INPUT]`, not invented.
