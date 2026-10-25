@@ -2,6 +2,18 @@
 
 A starter kit for teams beginning a data governance program, modeled on the shape of Anthropic's [Claude for Financial Services](https://www.anthropic.com/news/claude-for-financial-services): one packaged solution made of (1) the model and tooling, (2) connectors into the systems of record, (3) ready-made workflows, and (4) implementation guidance.
 
+## 0. Decisions (locked)
+
+| Question | Decision |
+|---|---|
+| Audience | **Product pitch**: this repo is the demo and proof that a packaged "Claude for Data Governance" can be sold, not only an internal kit |
+| Industry | **Insurance first** (claims data, NAIC / state DOI, NAIC Model Audit Rule, GLBA, GDPR/CCPA, SOX). Industry packs added later; core skills stay industry-neutral |
+| Catalog | **Collibra first** (system of record for glossary, owners, assets) |
+| Warehouse | Not decided. Assumed **Snowflake** because the seed skills use it. Confirm |
+| Seed skills | Port the existing claims-DQ, glossary and steward-onboarding skills (done, see `skills/`) |
+
+Pitch implications: the repo needs a 5-minute end-to-end demo on synthetic insurance claims data, a one-page value story with the metrics in section 7, and a security/trust page (section 5) that a buyer's CISO can read.
+
 ## 1. Goal and audience
 
 Give a team that is *starting* governance (a few stewards, a CDO sponsor, no mature tooling) a working baseline in 90 days: agreed vocabulary, owned critical data, measured quality, and documented policy, with Claude doing the drafting and triage work that normally stalls programs.
@@ -38,12 +50,29 @@ Each skill is a folder with `SKILL.md`, an input/output template, and 2-3 worked
 
 Start with 1, 3, 4, 5 (highest value, lowest integration cost).
 
+### Seed skills already ported to `skills/`
+
+| Plan skill | Ported folder |
+|---|---|
+| 1 Glossary term definer | `define-business-term` |
+| 3 DQ rule writer | `goviq-claims-dq-rule-writing` |
+| 3 Profiling (supports rules) | `goviq-claims-dq-profiling`, `goviq-claims-intelligent-profile-analysis` |
+| 4 DQ triage / scorecard narrator | `goviq-claims-dq-triage`, `goviq-claims-dq-scorecard-narration` |
+| 9 Steward onboarding coach | `goviq-steward-onboarding-coach` |
+| 10 Exception and remediation | `goviq-claims-dq-exception-management`, `goviq-claims-dq-remediation-playbook` |
+| Documentation of rules/assets | `goviq-claims-dq-documentation` |
+
+Gaps still to build: 2 (CDE identifier), 5 (sensitivity tagger), 6 (lineage), 7 (policy mapper), 8 (access review), 11 (council briefer).
+
+Follow-ups on the ported set: (a) rename `goviq-*` to neutral names if the product is not GovIQ-branded, (b) separate the insurance-specific content from the industry-neutral method so other industries can reuse the core, (c) remove or generalize tool-specific references (e.g. DQLabs handoff) behind a connector note.
+
 ## 4. Connectors (via MCP)
 
-Prioritize by what a starting team already owns:
+Build order for the pitch: **Collibra** (catalog, first) + **Snowflake** (warehouse, assumed), then the rest.
 
-- **Warehouses:** Snowflake, BigQuery, Databricks (Unity Catalog), Redshift
-- **Catalogs:** DataHub, OpenMetadata (open source, good default), Collibra, Alation, Atlan, Microsoft Purview
+- **Catalog (first): Collibra.** Read: communities, domains, assets, glossary terms, owners/stewards, workflows. Write (phase 4, approval-gated): propose terms and attribute updates as draft assets, never auto-approve. Confirm API vs. an existing MCP server before building.
+- **Warehouses:** Snowflake (first), then BigQuery, Databricks (Unity Catalog), Redshift
+- **Later catalogs:** DataHub, OpenMetadata, Alation, Atlan, Microsoft Purview
 - **Work tracking:** Jira, ServiceNow, Notion/Confluence
 - **Comms:** Slack/Teams for steward Q&A
 - **Docs:** SharePoint/Drive for policies and standards
@@ -61,7 +90,8 @@ Rule: read-only first. Write access (tagging, ticket creation) only after the ap
 ## 6. Roadmap
 
 **Phase 0, weeks 0-2: Foundation**
-- Interview stakeholders; pick 1 domain (e.g. Customer) and 3-5 critical tables.
+- Interview stakeholders; pick 1 domain (insurance: Claims) and 3-5 critical tables.
+- Build the synthetic insurance claims dataset used by the pitch demo.
 - Stand up Claude workspace, connect one warehouse and one catalog (read-only).
 - Exit: scoped domain, access working, success metrics agreed.
 
@@ -112,9 +142,12 @@ examples/              sample domain end to end (synthetic data)
 | Tool sprawl | Start with one warehouse + one catalog |
 | Over-promising vs. regulation | Position as drafting aid, not legal advice |
 
-## 10. Open questions for the owner
+## 10. Open questions
 
-1. Primary audience: internal enablement kit, open-source community, or product pitch?
-2. Industry focus (generic, healthcare, financial services, insurance)? Compliance mappings differ.
-3. Catalog and warehouse to demo first?
-4. Are existing skills (glossary term definer, DQ rule writing, profiling, scorecard narration, steward onboarding) to be ported into `skills/` as the seed set?
+1. Warehouse to pair with Collibra: Snowflake (assumed)?
+2. Branding: keep GovIQ naming in skills or use a neutral product name?
+3. Is the repo public on purpose? It is currently public, and the ported skills are now in it.
+4. Which insurance line leads the demo (P&C claims is what the seed skills cover)? Life and health differ.
+5. Insurance compliance mapping scope for the policy skill: NAIC Model Audit Rule, state DOI data-security laws (NAIC Insurance Data Security Model Law), GLBA, GDPR/CCPA, SOX. Confirm priority.
+
+Resolved: audience (product pitch), industry (insurance first), catalog (Collibra), seed skills (ported).

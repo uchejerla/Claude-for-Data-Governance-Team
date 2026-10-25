@@ -8,4 +8,4 @@ A starting point for teams implementing data governance with Claude: governance 
 
 Start here: [docs/PLAN.md](docs/PLAN.md)
 
-Status: planning. Skills and connectors are added phase by phase per the plan.
+Status: plan plus seed skills (insurance claims DQ, glossary, steward onboarding). Collibra connector is next.
